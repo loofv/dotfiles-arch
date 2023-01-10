@@ -1,0 +1,1 @@
+/home/loveh/git/dotfiles-manjaro/lovehtheme1.vim

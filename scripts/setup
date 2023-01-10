@@ -1,0 +1,10 @@
+#!bin/sh
+
+pacman -S git
+/* med mera */
+/* skriv instruktioner för pre-install grejer. networkmanager etc */
+
+/* yay/pacman -S */
+yay -Syyu --noconfirm i3 \
+alacritty
+i3 python-pywal

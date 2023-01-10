@@ -1,0 +1,8 @@
+# !bin/sh
+setxkbmap -option caps:swapescape
+setxkbmap -layout se
+xset r rate 220 45
+
+feh --bg-scale ~/Downloads/national-park-4k-by-ai-1366×768.jpg
+while pgrep -x wal > /dev/null; do sleep 10; done
+wal -i ~/Downloads/national-park-4k-by-ai-1366×768.jpg
