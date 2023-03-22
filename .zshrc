@@ -4,17 +4,18 @@ export PATH="$HOME/.custom_scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/usr/local:$PATH"
 
+# Mac stuff
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+eval $(/opt/homebrew/bin/brew shellenv)
+
 # Read my aliases file
 . ~/.aliases
-
-# Persist pywal for new terminals
-(cat ~/.cache/wal/sequences &)
-. "${HOME}/.cache/wal/colors.sh"
 
 # Command history
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
+setopt share_history
 
 # Vim mode
 bindkey -v
@@ -43,12 +44,15 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!**/{build,.git,gen,.class,bin,coverage,node_modules}/**" 2> /dev/null'
 
-# Automatically add fzf key bindings to .zshrc
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+# source /usr/share/fzf/key-bindings.zsh
+# source /usr/share/fzf/completion.zsh
 
 # PROMPT
 source ~/.zsh_prompt
 
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
 # zsh-syntax-highlighting must be at the bottom
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Automatically add fzf key bindings to .zshrc
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

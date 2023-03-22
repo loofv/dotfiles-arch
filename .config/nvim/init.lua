@@ -43,7 +43,8 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
-  use { 'AlphaTechnolog/pywal.nvim', as = 'pywal' }
+--  use { 'AlphaTechnolog/pywal.nvim', as = 'pywal' }
+use 'navarasu/onedark.nvim' -- Theme inspired by Atom
 
   use 'vimwiki/vimwiki'
   -- Git related plugins
@@ -98,6 +99,9 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
+-- Copy and paste from clipboard
+vim.opt.clipboard = 'unnamedplus'
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -123,7 +127,8 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 -- vim.o.termguicolors = true
-vim.cmd [[colorscheme pywal]]
+vim.cmd [[colorscheme onedark]]
+
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -154,12 +159,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- Lua
+require('onedark').setup {
+    style = 'deep'
+}
+require('onedark').load()
+
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'pywal-nvim',
+    theme = 'onedark',
     component_separators = '|',
     section_separators = '',
   },
@@ -169,8 +180,8 @@ require('lualine').setup {
 require('Comment').setup()
 
 -- Enable pywal theme
-local pywal = require('pywal')
-pywal.setup()
+-- local pywal = require('pywal')
+--pywal.setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
@@ -350,7 +361,7 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
 
-  sumneko_lua = {
+  luau_lsp = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
