@@ -161,7 +161,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Lua
 require('onedark').setup {
-    style = 'deep'
+    style = 'deep',
+  transparent = true
 }
 require('onedark').load()
 
