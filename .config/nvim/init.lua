@@ -44,25 +44,94 @@ require('packer').startup(function(use)
   }
 
 --  use { 'AlphaTechnolog/pywal.nvim', as = 'pywal' }
-use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
 
   use 'vimwiki/vimwiki'
   -- Git related plugins
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
-
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
+  -- use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
-
+  use 'tpope/vimsleuth' -- Detect tabstop and shiftwidth automatically
+  -- use 'nvim-tree/nvim-web-devicons'
+  use 'kyazdani42/nvim-web-devicons'
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+
+  use {
+    "folke/lsp-trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+
+  use {
+    "wojciech-kulik/xcodebuild.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("xcodebuild").setup({
+        -- put some options here or leave it empty to use default settings
+      })
+    end,
+  }
+
+  use {
+  "mfussenegger/nvim-dap",
+  dependencies = {
+    "wojciech-kulik/xcodebuild.nvim"
+  },
+  config = function()
+    local dap = require("dap")
+
+    dap.configurations.swift = {
+      {
+        name = "iOS App Debugger",
+        type = "codelldb",
+        request = "attach",
+        -- this will wait until the app is launched
+        pid = require("xcodebuild.dap").wait_for_pid,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+      },
+    }
+
+    dap.adapters.codelldb = {
+      type = "server",
+      port = "13000",
+      executable = {
+        -- set path to the downloaded codelldb
+        -- command = "/path/to/codelldb/extension/adapter/codelldb",
+        command = "~/codelldb-aarch64-darwin.vsix",
+        args = {
+          "--port",
+          "13000",
+          "--liblldb",
+          -- make sure that this path is correct on your side
+          "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+        },
+      },
+    }
+
+    -- sample keymap to build & run the app
+    vim.keymap.set("n", "<leader>R", function()
+      require("xcodebuild.dap").build_and_run(function()
+        dap.continue()
+      end)
+    end)
+  end,
+}
+
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -105,8 +174,8 @@ vim.opt.clipboard = 'unnamedplus'
 -- Set highlight on search
 vim.o.hlsearch = false
 
--- Make line numbers default
-vim.wo.number = true
+-- Relative line numbers
+vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -127,8 +196,12 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 -- vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
-
+-- vim.cmd [[colorscheme onedark]]
+require('onedark').setup {
+    style = 'warmer',
+  term_colors = true,
+}
+require('onedark').load()
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -159,13 +232,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- Lua
-require('onedark').setup {
-    style = 'deep',
-  transparent = true
-}
-require('onedark').load()
-
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup {
@@ -177,6 +243,49 @@ require('lualine').setup {
   },
 }
 
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- you can specify color or cterm_color instead of specifying both of them
+ -- DevIcon will be appended to `name`
+ override = {
+  zsh = {
+    icon = "",
+    color = "#428850",
+    cterm_color = "65",
+    name = "Zsh"
+  }
+ };
+ -- globally enable different highlight colors per icon (default to true)
+ -- if set to false all icons will have the default icon's color
+ color_icons = true;
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+ -- globally enable "strict" selection of icons - icon will be looked up in
+ -- different tables, first by filename, and if not found by extension; this
+ -- prevents cases when file doesn't have any extension but still gets some icon
+ -- because its name happened to match some extension (default to false)
+ strict = true;
+ -- same as `override` but specifically for overrides by filename
+ -- takes effect when `strict` is true
+ override_by_filename = {
+  [".gitignore"] = {
+    icon = "",
+    color = "#f1502f",
+    name = "Gitignore"
+  }
+ };
+ -- same as `override` but specifically for overrides by extension
+ -- takes effect when `strict` is true
+ override_by_extension = {
+  ["log"] = {
+    icon = "",
+    color = "#81e043",
+    name = "Log"
+  }
+ };
+}
+
 -- Enable Comment.nvim
 require('Comment').setup()
 
@@ -186,10 +295,10 @@ require('Comment').setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
-}
+-- require('indent_blankline').setup {
+--   char = '┊',
+--   show_trailing_blankline_indent = false,
+-- }
 
 -- Gitsigns
 -- See `:help gitsigns.txt`
@@ -396,6 +505,20 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
+local lspconfig = require 'lspconfig'
+
+lspconfig["sourcekit"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  cmd = {
+    "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+  },
+  root_dir = function(filename, _)
+    local git_root = lspconfig.util.find_git_ancestor(filename)
+    return git_root
+  end,
+})
 
 -- Turn on lsp status information
 require('fidget').setup()
