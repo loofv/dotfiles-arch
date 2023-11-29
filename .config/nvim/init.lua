@@ -176,6 +176,8 @@ vim.o.hlsearch = false
 
 -- Relative line numbers
 vim.wo.relativenumber = true
+-- Show current line number
+vim.wo.number = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
