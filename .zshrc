@@ -3,6 +3,9 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="$HOME/.custom_scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/usr/local:$PATH"
+export PATH="$HOME/Applications/WezTerm.app/Contents/MacOS:$PATH"
+# PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
+# export PATH
 
 # Mac stuff
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH

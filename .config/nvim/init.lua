@@ -201,7 +201,8 @@ vim.wo.signcolumn = 'yes'
 -- vim.cmd [[colorscheme onedark]]
 require('onedark').setup {
     style = 'warmer',
-  term_colors = true,
+  term_colors = false,
+  transparent = true,
 }
 require('onedark').load()
 
