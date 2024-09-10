@@ -549,6 +549,32 @@ require('fidget').setup()
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
+lspconfig["pylsp"].setup({
+  on_attach = on_attach,
+  flags = {
+    -- This will be the default in neovim 0.7+
+    debounce_text_changes = 150,
+  },
+  settings = {
+    -- configure plugins in pylsp
+    pylsp = {
+      plugins = {
+        pyflakes = {enabled = false},
+        pylint = {enabled = false},
+        -- mccabe = {enabled = false},
+        -- black = {enabled = true},
+        pycodestyle = {
+          enabled = true,
+          -- maxLineLength = 60, -- doesn't work
+          -- ignore = {"E501"},
+          -- args = { "--max-line-length", 105 }
+        },
+        -- flake8 = { enabled = true, maxLineLength = 120 },
+      },
+    },
+  },
+  })
+
 cmp.setup {
   snippet = {
     expand = function(args)
