@@ -5,11 +5,11 @@ precmd() {
     vcs_info
     # Formats is what vcs_info_msg_0_ returns
     # %b = branch, %c = staged changes, %u = unstaged changes
-    local formats="%{$reset_color%}%{$fg[yellow]%}[%b%c%u]%{$reset_color%}"
+    local formats="%{$reset_color%}%{$fg[yellow]%}[%b%c%u%{$fg[yellow]%}]%{$reset_color%}"
     zstyle ':vcs_info:*:*' formats           $formats
     zstyle ':vcs_info:*:*' check-for-changes true
-    zstyle ':vcs_info:*:*' stagedstr         "%{$fg[green]%}*"
-    zstyle ':vcs_info:*:*' unstagedstr       "%{$fg[red]%}*"
+    zstyle ':vcs_info:*:*' stagedstr         "%{$fg[green]%}*%{$reset_color%}"
+    zstyle ':vcs_info:*:*' unstagedstr       "%{$fg[red]%}*%{$reset_color%}"
 }
 setopt PROMPT_SUBST
 # Colors
