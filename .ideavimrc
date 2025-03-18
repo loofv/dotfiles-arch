@@ -1,0 +1,42 @@
+" Plugins
+set surround
+set commentary
+set NERDTree
+set highlightedyank
+
+" Fix terrible horrible annoying bell sound
+set noerrorbells
+set visualbell
+
+set number relativenumber
+set scrolloff=10
+let mapleader=" "
+map <leader>q <Action>(CloseEditor)
+map <leader>nt :NERDTree
+map <leader>ff <Action>(GotoFile)
+map <leader>fa <Action>(GotoAction)
+map <leader>gd <Action>(GotoDeclaration)
+map <leader>rg <Action>(FindInPath)
+map <leader>fu <Action>(FindUsages)
+map <leader>rc <Action>(RunClass)
+map <leader>gh <Action>(ShowErrorDescription)
+map <leader>si :source ~/.ideavimrc <CR>
+map <leader>bb :b#<CR>
+
+" Android dev
+" Rerun app with changes
+map <leader>ra <Action>(android.deploy.ApplyChanges)
+
+
+
+" TODO add
+" navigera tabs
+" splits?
+set clipboard+=ideaput
+set clipboard+=unnamedplus
+set ideajoin
+
+" Enable pasting over text in visual mode without replacing the content in
+" clipboard with the text that was pasted over.
+set ReplaceWithRegister
+xmap p gr
