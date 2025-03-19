@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STASH=$(git stash list | fzf | sed 's/\}.*/}/')
-
+echo "stash: $STASH"
 if [ -z "$STASH" ];
 then
     echo "Exiting without applying any stashes."
