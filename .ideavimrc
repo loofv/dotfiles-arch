@@ -16,6 +16,8 @@ map <leader>nt :NERDTree
 map <leader>ff <Action>(GotoFile)
 map <leader>fa <Action>(GotoAction)
 map <leader>gd <Action>(GotoDeclaration)
+" Show error information under cursor
+map <leader>gh <Action>(ShowErrorDescription) 
 map <leader>rg <Action>(FindInPath)
 map <leader>fu <Action>(FindUsages)
 map <leader>rc <Action>(RunClass)
