@@ -35,3 +35,5 @@ alias sps="sudo pacman -S"
 alias sudo="sudo "
 alias lg="lazygit"
 alias grs="git restore --staged"
+alias gds="git diff --staged"
+alias gsa='source ~/.custom_scripts/sta.sh'
