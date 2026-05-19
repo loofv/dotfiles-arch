@@ -1,0 +1,35 @@
+alias gs='git status'
+alias gc='git checkout'
+alias gb='git branch'
+alias gl='git log -3'
+alias gf='git fetch'
+alias gp='git pull'
+alias gbsu='git branch --set-upstream-to='
+alias gsa='git stash apply'
+alias gss='git stash save'
+alias gsl='git stash list'
+alias gcp='git cherry-pick'
+alias gk='gitk &'
+alias ga='git add . && git status'
+alias gpdo='git push --delete origin'
+alias myremotebranches='git branch -r | xargs -L1 git --no-pager show -s --oneline --author="$(git config user.name)"'
+alias gca='git commit --amend'
+alias vw='v ~/vimwiki/index.wiki'
+alias vimconf='v ~/.config/nvim/init.vim'
+alias cdjs='cd ~/git/ufo/projects-js/js-client'
+alias vimconf='v ~/.config/nvim/init.vim'
+alias bb='source ~/.custom_scripts/bb'
+alias list-usb='sudo fdisk -l'
+alias mount-usb-sdb1='sudo mount -t vfat /dev/sdb1 /media/usb -o uid=1000,gid=100,utf8,dmask=027,fmask=137'
+alias unmount-usb='sudo umount /media/usb'
+alias bletooth-sony='sudo bluetoothctl connect 38:18:4C:BD:91:80'
+alias sony='sudo bluetoothctl connect 38:18:4C:BD:91:80'
+alias weather='curl "wttr.in/Gothenburg"'
+alias v='nvim'
+alias displays='xrandr | grep "connected" | cut -f1 -d " "xrandr | grep "connected" | cut -f1 -d " "'
+alias bg="feh --bg-scale"
+alias zz="source ~/.zshrc"
+alias cdconf="cd ~/git/dotfiles-arch/"
+alias sps="sudo pacman -S"
+alias sudo="sudo "
+alias lg="lazygit"
