@@ -4,6 +4,7 @@ alias gb='git branch'
 alias gl='git log -3'
 alias gf='git fetch'
 alias gp='git pull'
+alias gd='git diff'
 alias gbsu='git branch --set-upstream-to='
 alias gsa='git stash apply'
 alias gss='git stash save'
@@ -29,7 +30,7 @@ alias v='nvim'
 alias displays='xrandr | grep "connected" | cut -f1 -d " "xrandr | grep "connected" | cut -f1 -d " "'
 alias bg="feh --bg-scale"
 alias zz="source ~/.zshrc"
-alias cdconf="cd ~/git/dotfiles-arch/"
+alias cdc="cd ~/git/dotfiles-arch/"
 alias sps="sudo pacman -S"
 alias sudo="sudo "
 alias lg="lazygit"
