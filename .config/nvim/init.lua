@@ -31,17 +31,6 @@ require('packer').startup(function(use)
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
 
-  use { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
-  }
-
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
 
 --  use { 'AlphaTechnolog/pywal.nvim', as = 'pywal' }
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
@@ -54,10 +43,7 @@ require('packer').startup(function(use)
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   -- use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vimsleuth' -- Detect tabstop and shiftwidth automatically
-  -- use 'nvim-tree/nvim-web-devicons'
-  use 'kyazdani42/nvim-web-devicons'
-  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
 
@@ -76,61 +62,61 @@ require('packer').startup(function(use)
     end
   }
 
-  use {
-    "wojciech-kulik/xcodebuild.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function()
-      require("xcodebuild").setup({
-        -- put some options here or leave it empty to use default settings
-      })
-    end,
-  }
+  -- use {
+  --   "wojciech-kulik/xcodebuild.nvim",
+  --   dependencies = { "nvim-telescope/telescope.nvim" },
+  --   config = function()
+  --     require("xcodebuild").setup({
+  --       -- put some options here or leave it empty to use default settings
+  --     })
+  --   end,
+  -- }
 
-  use {
-  "mfussenegger/nvim-dap",
-  dependencies = {
-    "wojciech-kulik/xcodebuild.nvim"
-  },
-  config = function()
-    local dap = require("dap")
-
-    dap.configurations.swift = {
-      {
-        name = "iOS App Debugger",
-        type = "codelldb",
-        request = "attach",
-        -- this will wait until the app is launched
-        pid = require("xcodebuild.dap").wait_for_pid,
-        cwd = "${workspaceFolder}",
-        stopOnEntry = false,
-      },
-    }
-
-    dap.adapters.codelldb = {
-      type = "server",
-      port = "13000",
-      executable = {
-        -- set path to the downloaded codelldb
-        -- command = "/path/to/codelldb/extension/adapter/codelldb",
-        command = "~/codelldb-aarch64-darwin.vsix",
-        args = {
-          "--port",
-          "13000",
-          "--liblldb",
-          -- make sure that this path is correct on your side
-          "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
-        },
-      },
-    }
-
-    -- sample keymap to build & run the app
-    vim.keymap.set("n", "<leader>R", function()
-      require("xcodebuild.dap").build_and_run(function()
-        dap.continue()
-      end)
-    end)
-  end,
-}
+--   use {
+--   "mfussenegger/nvim-dap",
+--   dependencies = {
+--     "wojciech-kulik/xcodebuild.nvim"
+--   },
+--   config = function()
+--     local dap = require("dap")
+--
+--     dap.configurations.swift = {
+--       {
+--         name = "iOS App Debugger",
+--         type = "codelldb",
+--         request = "attach",
+--         -- this will wait until the app is launched
+--         pid = require("xcodebuild.dap").wait_for_pid,
+--         cwd = "${workspaceFolder}",
+--         stopOnEntry = false,
+--       },
+--     }
+--
+--     dap.adapters.codelldb = {
+--       type = "server",
+--       port = "13000",
+--       executable = {
+--         -- set path to the downloaded codelldb
+--         -- command = "/path/to/codelldb/extension/adapter/codelldb",
+--         command = "~/codelldb-aarch64-darwin.vsix",
+--         args = {
+--           "--port",
+--           "13000",
+--           "--liblldb",
+--           -- make sure that this path is correct on your side
+--           "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+--         },
+--       },
+--     }
+--
+--     -- sample keymap to build & run the app
+--     vim.keymap.set("n", "<leader>R", function()
+--       require("xcodebuild.dap").build_and_run(function()
+--         dap.continue()
+--       end)
+--     end)
+--   end,
+-- }
 
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
@@ -351,68 +337,6 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>rg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
-require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
-
-  highlight = { enable = true },
-  indent = { enable = true, disable = { 'python' } },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<c-backspace>',
-    },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
-    },
-  },
-}
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -518,29 +442,29 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    }
-  end,
-}
+-- mason_lspconfig.setup_handlers {
+--   function(server_name)
+--     require('lspconfig')[server_name].setup {
+--       capabilities = capabilities,
+--       on_attach = on_attach,
+--       settings = servers[server_name],
+--     }
+--   end,
+-- }
 
 local lspconfig = require 'lspconfig'
 
-lspconfig["sourcekit"].setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  cmd = {
-    "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
-  },
-  root_dir = function(filename, _)
-    local git_root = lspconfig.util.find_git_ancestor(filename)
-    return git_root
-  end,
-})
+-- lspconfig["sourcekit"].setup({
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   cmd = {
+--     "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+--   },
+--   root_dir = function(filename, _)
+--     local git_root = lspconfig.util.find_git_ancestor(filename)
+--     return git_root
+--   end,
+-- })
 
 -- Turn on lsp status information
 require('fidget').setup()
