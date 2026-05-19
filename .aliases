@@ -6,7 +6,6 @@ alias gf='git fetch'
 alias gp='git pull'
 alias gd='git diff'
 alias gbsu='git branch --set-upstream-to='
-alias gsa='git stash apply'
 alias gss='git stash save'
 alias gsl='git stash list'
 alias gcp='git cherry-pick'
@@ -36,4 +35,4 @@ alias sudo="sudo "
 alias lg="lazygit"
 alias grs="git restore --staged"
 alias gds="git diff --staged"
-alias gsa='source ~/.custom_scripts/sta.sh'
+alias gsa='source ~/git/dotfiles-arch/sta.sh'
