@@ -129,15 +129,16 @@ on-mode-changed = []
     alt-equal = 'resize smart +50'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+    # Some are commented out to be able to type some signs on the keyboard.
     alt-1 = 'workspace 1'
-    alt-2 = 'workspace 2'
+    #alt-2 = 'workspace 2' - commented out to enable " sign on mac keyboard
     alt-3 = 'workspace 3'
-    alt-4 = 'workspace 4'
+    #alt-4 = 'workspace 4'enable dollar sign
     alt-5 = 'workspace 5'
     alt-6 = 'workspace 6'
-    alt-7 = 'workspace 7'
-    alt-8 = 'workspace 8'
-    alt-9 = 'workspace 9'
+    #alt-7 = 'workspace 7'
+    #alt-8 = 'workspace 8'
+    #alt-9 = 'workspace 9'
     alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
     alt-b = 'workspace B'
     alt-c = 'workspace C'
