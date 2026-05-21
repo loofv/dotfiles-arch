@@ -38,3 +38,4 @@ alias gds="git diff --staged"
 alias gsa='source ~/git/dotfiles-arch/sta.sh'
 alias cdi='cd ~/git/ios-app'
 alias cda='cd ~/git/app'
+alias cdg='cd ~/git'
