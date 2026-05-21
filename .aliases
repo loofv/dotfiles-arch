@@ -36,3 +36,5 @@ alias lg="lazygit"
 alias grs="git restore --staged"
 alias gds="git diff --staged"
 alias gsa='source ~/git/dotfiles-arch/sta.sh'
+alias cdi='cd ~/git/ios-app'
+alias cda='cd ~/git/app'
