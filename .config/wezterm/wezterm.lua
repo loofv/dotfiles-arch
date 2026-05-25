@@ -1,6 +1,9 @@
 local wezterm = require('wezterm')
 local act = wezterm.action;
 
+-- Disable the confirmation prompt when closing windows
+config.window_close_confirmation = 'NeverPrompt'
+
 return {
 	-- For example, changing the color scheme:
 	color_scheme = 'noir',
