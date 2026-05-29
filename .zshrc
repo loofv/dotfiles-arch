@@ -6,7 +6,8 @@ export PATH="$HOME/usr/local:$PATH"
 export PATH="$HOME/Applications/WezTerm.app/Contents/MacOS:$PATH"
 # PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
 # export PATH
-JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
+# JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
+JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-26.jdk/Contents/Home
 
 # Mac stuff
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
