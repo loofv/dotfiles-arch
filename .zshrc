@@ -4,10 +4,13 @@ export PATH="$HOME/.custom_scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/usr/local:$PATH"
 export PATH="$HOME/Applications/WezTerm.app/Contents/MacOS:$PATH"
+
+export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+export PATH="$JAVA_HOME/bin:$PATH"
+
 # PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
 # export PATH
-# JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
-JAVA_HOME=/opt/homebrew/opt/openjdk@21
+# JAVA_HOME=/opt/homebrew/opt/openjdk@21
 # Mac stuff
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 eval $(/opt/homebrew/bin/brew shellenv)
@@ -59,6 +62,4 @@ export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlightin
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
