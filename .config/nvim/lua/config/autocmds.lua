@@ -16,3 +16,29 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     end
   end,
 })
+
+-- Commit messages: body lines start with "  * " and Enter continues the bullet
+vim.api.nvim_create_autocmd('FileType', {
+  group = group,
+  pattern = 'gitcommit',
+  callback = function(ev)
+    vim.opt_local.autoindent = false -- the mapping below supplies the indent
+
+    -- Enter starts the bullet list on line 2 and continues bullets after that
+    vim.keymap.set('i', '<CR>', function()
+      local line = vim.api.nvim_get_current_line()
+      local row = vim.api.nvim_win_get_cursor(0)[1]
+      if row == 2 and line == '' then
+        return '<CR>  * '
+      end
+      local bullet = line:match('^%s*[*-] ')
+      if bullet and line:match('^%s*[*-] %S') then
+        return '<CR>' .. bullet
+      end
+      if bullet then -- empty bullet: remove it and end the list
+        return '<C-u><CR>'
+      end
+      return '<CR>'
+    end, { buffer = ev.buf, expr = true, replace_keycodes = true })
+  end,
+})
